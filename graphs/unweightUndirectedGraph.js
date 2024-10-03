@@ -56,11 +56,11 @@ class Graph {
     }
 
     isEmpty() {
-        return !Object.values(this.adjacencyList).length;
+        return !Object.keys(this.adjacencyList).length;
     }
 
     getSize() {
-        return Object.values(this.adjacencyList).length
+        return Object.keys(this.adjacencyList).length
     }
 
     getEdgesCount() {
