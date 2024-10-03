@@ -1,4 +1,4 @@
-// Unweight and Undirected Graph
+// Unweighted and Undirected Graph
 class Graph {
     constructor() {
         this.adjacencyList = {};
