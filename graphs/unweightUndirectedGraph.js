@@ -1,4 +1,5 @@
-class UnDirectedGrpah {
+// Unweight and Undirected Graph
+class Graph {
     constructor() {
         this.adjacencyList = {};
     }
@@ -10,7 +11,7 @@ class UnDirectedGrpah {
         this.adjacencyList[v] = new Set();
     }
 
-    addE(v1, v2) {
+    addEdge(v1, v2) {
         if (!this.adjacencyList[v1]) {
             addVertex(v1)
         }
@@ -20,9 +21,18 @@ class UnDirectedGrpah {
         this.adjacencyList[v1].add(v2)
         this.adjacencyList[v2].add(v1)
     }
+
     removeEdge(v1, v2) {
         this.adjacencyList[v1].delete(v2)
         this.adjacencyList[v2].delete(v1)
+    }
+
+    hasEdge(v1, v2) {
+        return this.adjacencyList[v1].has(v2);
+    }
+
+    getNeighbors(v) {
+        return `${v} --> ${[...this.adjacencyList[v]]}`;
     }
 
     removeVertex(v) {
@@ -42,24 +52,35 @@ class UnDirectedGrpah {
     }
 }
 
-const graph = new UnDirectedGrpah();
+const graph = new Graph();
 graph.addVertex(1)
 graph.addVertex(2)
 graph.addVertex(3)
 graph.addVertex(4)
+graph.addVertex(5)
 graph.displayGraph()
 console.log('------------')
 
-graph.addE(1, 3)
-graph.addE(2, 3)
-graph.addE(2, 4)
-graph.addE(1, 2)
+graph.addEdge(1, 3)
+graph.addEdge(2, 3)
+graph.addEdge(2, 4)
+graph.addEdge(1, 2)
 graph.displayGraph()
 console.log('------------')
+
+console.log('Neighbors')
+console.log(graph.getNeighbors(2))
+console.log(graph.getNeighbors(4))
+console.log(graph.getNeighbors(5))
+console.log('------------')
+
+console.log(graph.hasEdge(2, 3))
 
 graph.removeEdge(2, 3)
 graph.displayGraph()
 console.log('------------')
+
+console.log(graph.hasEdge(2, 3))
 
 graph.removeVertex(4)
 graph.displayGraph()
@@ -74,19 +95,30 @@ OUTPUT
 2 --> 
 3 --> 
 4 --> 
+5 --> 
 ------------
 1 --> 3,2
 2 --> 3,4,1
 3 --> 1,2
 4 --> 2
+5 --> 
 ------------
+Neighbors
+2 --> 3,4,1
+4 --> 2
+5 --> 
+------------
+true
 1 --> 3,2
 2 --> 4,1
 3 --> 1
 4 --> 2
+5 --> 
 ------------
+false
 1 --> 3,2
 2 --> 1
 3 --> 1
+5 --> 
 ------------
 */
