@@ -11,6 +11,10 @@ class Graph {
         this.adjacencyList[v] = new Set();
     }
 
+    hasVertex(v) {
+        return this.adjacencyList.hasOwnProperty(v);
+    }
+
     addEdge(v1, v2) {
         if (!this.adjacencyList[v1]) {
             addVertex(v1)
@@ -28,7 +32,7 @@ class Graph {
     }
 
     hasEdge(v1, v2) {
-        return this.adjacencyList[v1].has(v2);
+        return this.adjacencyList[v1].has(v2) && this.adjacencyList[v2].has(v1)
     }
 
     getNeighbors(v) {
@@ -50,10 +54,34 @@ class Graph {
             console.log(`${v} --> ${[...this.adjacencyList[v]]}`)
         }
     }
+
+    isEmpty() {
+        return !Object.values(this.adjacencyList).length;
+    }
+
+    getSize() {
+        return Object.values(this.adjacencyList).length
+    }
+
+    getEdgesCount() {
+        let edgeCount = 0;
+        for (let v in this.adjacencyList) {
+            edgeCount += this.adjacencyList[v].size;
+        }
+        return edgeCount / 2;
+    }
+
+    getDegree(v) {
+        return this.adjacencyList[v].size;
+    }
 }
 
 const graph = new Graph();
+console.log('Is Empty:: ', graph.isEmpty())
 graph.addVertex(1)
+console.log('Has Vertex:: ', graph.hasVertex(1))
+console.log('Has Vertex:: ', graph.hasVertex(2))
+console.log('Is Empty:: ', graph.isEmpty())
 graph.addVertex(2)
 graph.addVertex(3)
 graph.addVertex(4)
@@ -68,22 +96,27 @@ graph.addEdge(1, 2)
 graph.displayGraph()
 console.log('------------')
 
+console.log('Size:: ', graph.getSize(1));
+console.log('No of Edges:: ', graph.getEdgesCount());
+console.log('Degree:: ', graph.getDegree(1));
+console.log('Degree:: ', graph.getDegree(2));
+console.log('------------')
+
 console.log('Neighbors')
 console.log(graph.getNeighbors(2))
 console.log(graph.getNeighbors(4))
 console.log(graph.getNeighbors(5))
 console.log('------------')
 
-console.log(graph.hasEdge(2, 3))
-
+console.log('Has Edge:: ', graph.hasEdge(2, 3))
+console.log('Has Edge:: ', graph.hasEdge(5, 3))
 graph.removeEdge(2, 3)
-graph.displayGraph()
 console.log('------------')
 
-console.log(graph.hasEdge(2, 3))
-
+console.log('Has Edge:: ', graph.hasEdge(2, 3))
 graph.removeVertex(4)
 graph.displayGraph()
+console.log('No of Edges:: ', graph.getEdgesCount());
 console.log('------------')
 
 
@@ -91,6 +124,10 @@ console.log('------------')
 /*
 OUTPUT
 ======
+Is Empty::  true
+Has Vertex::  true
+Has Vertex::  false
+Is Empty::  false
 1 --> 
 2 --> 
 3 --> 
@@ -103,22 +140,24 @@ OUTPUT
 4 --> 2
 5 --> 
 ------------
+Size::  5
+No of Edges::  4
+Degree::  2
+Degree::  3
+------------
 Neighbors
 2 --> 3,4,1
 4 --> 2
 5 --> 
 ------------
-true
-1 --> 3,2
-2 --> 4,1
-3 --> 1
-4 --> 2
-5 --> 
+Has Edge::  true
+Has Edge::  false
 ------------
-false
+Has Edge::  false
 1 --> 3,2
 2 --> 1
 3 --> 1
 5 --> 
+No of Edges::  2
 ------------
 */
