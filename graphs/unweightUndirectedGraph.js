@@ -96,7 +96,7 @@ graph.addEdge(1, 2)
 graph.displayGraph()
 console.log('------------')
 
-console.log('Size:: ', graph.getSize(1));
+console.log('Size:: ', graph.getSize());
 console.log('No of Edges:: ', graph.getEdgesCount());
 console.log('Degree:: ', graph.getDegree(1));
 console.log('Degree:: ', graph.getDegree(2));
